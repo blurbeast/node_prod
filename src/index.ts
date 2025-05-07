@@ -1,12 +1,16 @@
 
-import fs from 'fs';
-console.log(1234);
 
-const addNumber = (a: number, b: number) => a + b;
+import express , { Express, Request, Response } from 'express';
 
-// fs.readFile()
+const app: Express = express();
+
+app.use(express.json());
 
 
-const resilt: number = addNumber(12, 4);
+const defaultRouter = (req: Request, res: Response) => {
+    res.send('loaded it on truck');
+}
 
-console.log('result is :::', resilt);
+app.get('/', defaultRouter);
+
+app.listen(2000, ()=> console.log("port at ::: 2000"));
