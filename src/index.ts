@@ -3,7 +3,7 @@ import express , { Express, Request, Response } from 'express';
 import { DataSource } from 'typeorm';
 import { User } from './entities/user.entity';
 import 'dotenv';
-import routes from './routes';
+import { AppRouter } from './routes';
 import { config } from 'dotenv';
 import { Player } from './player/entities/player.entity';
 import { PlayerSalt } from './player/entities/salted.entity';
@@ -30,9 +30,11 @@ export const appDataSource = new DataSource({
     // logging: true
 });
 
+
 appDataSource.initialize().then(async() => {
     await appDataSource.runMigrations();
+    const appRounter = new AppRouter();
     app.get('/', defaultRouter);
-    app.use('/api', routes);
+    app.use('/api', appRounter.getRouter());
     app.listen(2000, ()=> console.log("port at ::: 2000"));
 }).catch((error) => console.error('error at ', error));

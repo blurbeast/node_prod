@@ -13,6 +13,7 @@ export class AppRouter {
         this.router = express.Router();
         this.permissionlessController = new permissionlessController();
         this.playerController = new PlayerController();
+        this.setRouter();
     }
 
     setRouter() {
@@ -24,8 +25,3 @@ export class AppRouter {
         return this.router;
     }
 }
-
-
-const router = new AppRouter();
-router.setRouter();
-export default router.getRouter();
