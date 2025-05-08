@@ -5,6 +5,8 @@ import { User } from './entities/user.entity';
 import 'dotenv';
 import routes from './routes';
 import { config } from 'dotenv';
+import { Player } from './player/entities/player.entity';
+import { PlayerSalt } from './player/entities/salted.entity';
 config();
 const app: Express = express();
 
@@ -16,16 +18,16 @@ const defaultRouter = (req: Request, res: Response) => {
 }
 
 
-const appDataSource = new DataSource({
+export const appDataSource = new DataSource({
     type: 'postgres',
     host: process.env.HOST,
     port: Number(process.env.DB_PORT),
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
-    entities: [User],
+    entities: [User, Player, PlayerSalt],
     migrations: ['src/migration/*.ts'],
-    synchronize: true,
+    synchronize: false,
     // logging: true
 });
 
