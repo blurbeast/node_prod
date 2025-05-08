@@ -23,7 +23,7 @@ const appDataSource = new DataSource({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
     entities: [User],
-    migrations: ['src/migration/migration.ts'],
+    migrations: ['src/migration/*.ts'],
     synchronize: false,
     // logging: true
 });
