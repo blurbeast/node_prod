@@ -21,6 +21,7 @@
     "express": "^5.1.0",
     "permissionless": "^0.2.45",
     "pg": "^8.15.6",
-    "typeorm": "^0.3.23"
+    "typeorm": "^0.3.23",
+    "viem": "^2.29.1"
   }
 }
