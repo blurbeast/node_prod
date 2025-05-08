@@ -17,4 +17,8 @@ export class PlayerController {
             });
         }
     }
+
+    async getPlayers(req: Request, res: Response) {
+        res.status(200).json('i am good ');
+    }
 }
