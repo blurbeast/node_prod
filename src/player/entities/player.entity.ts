@@ -2,8 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 
 
-
-@Entity('player')
+@Entity('players')
 export class Player {
     @PrimaryGeneratedColumn('increment')
     id!: number;
