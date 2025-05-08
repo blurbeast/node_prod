@@ -30,10 +30,9 @@ export const appDataSource = new DataSource({
     // logging: true
 });
 
-app.get('/', defaultRouter);
-app.use('/api', routes);
-
 appDataSource.initialize().then(async() => {
     await appDataSource.runMigrations();
+    app.get('/', defaultRouter);
+    app.use('/api', routes);
     app.listen(2000, ()=> console.log("port at ::: 2000"));
 }).catch((error) => console.error('error at ', error));
