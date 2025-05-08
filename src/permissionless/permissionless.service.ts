@@ -3,7 +3,7 @@ import {createPublicClient, Hex, http} from 'viem';
 import {toSimpleSmartAccount} from "permissionless/accounts";
 import {privateKeyToAccount} from "viem/accounts";
 import { somniaTestnet} from "viem/chains";
-import { entryPoint07Address } from "viem/_types/constants/address";
+import { entryPoint07Address } from "viem/account-abstraction";
 config();
 
 export class PermissionlessService {
