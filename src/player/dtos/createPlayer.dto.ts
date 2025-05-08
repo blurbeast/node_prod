@@ -1,6 +1,6 @@
 
 
 
-export interface CreateUserDto {
-    username: string;
+export class CreatePlayerDto {
+    username!: string;
 }
