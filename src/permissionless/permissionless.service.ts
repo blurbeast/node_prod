@@ -2,7 +2,8 @@ import { config } from "dotenv";
 import {createPublicClient, Hex, http} from 'viem';
 import {toSimpleSmartAccount} from "permissionless/accounts";
 import {privateKeyToAccount} from "viem/accounts";
-import {sepolia, somniaTestnet} from "viem/chains";
+import { somniaTestnet} from "viem/chains";
+import { entryPoint07Address } from "viem/_types/constants/address";
 config();
 
 export class PermissionlessService {
@@ -18,6 +19,10 @@ export class PermissionlessService {
         const userAccount = await toSimpleSmartAccount({
             client: this.publicClient(),
             owner: privateKeyToAccount(('0x' + process.env.WALLET_KEY) as Hex),
+            entryPoint: {
+                address: entryPoint07Address,
+                version: '0.7'
+            },
             index: BigInt(salted)
         });
 

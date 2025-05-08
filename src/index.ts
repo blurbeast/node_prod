@@ -33,6 +33,6 @@ app.get('/', defaultRouter);
 app.use('/api', routes);
 
 appDataSource.initialize().then(async() => {
-    // await appDataSource.runMigrations();
+    await appDataSource.runMigrations();
     app.listen(2000, ()=> console.log("port at ::: 2000"));
 }).catch((error) => console.error('error at ', error));
