@@ -17,7 +17,6 @@ const defaultRouter = (req: Request, res: Response) => {
     res.send('loaded it on truck');
 }
 
-
 export const appDataSource = new DataSource({
     type: 'postgres',
     host: process.env.HOST,
