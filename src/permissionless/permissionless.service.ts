@@ -1,5 +1,5 @@
 import { config } from "dotenv";
-import {createPublicClient, Hex, http} from 'viem';
+import {createPublicClient, createWalletClient, getAddress, getContract, Hex, http, parseAbi} from 'viem';
 import {toSimpleSmartAccount} from "permissionless/accounts";
 import {privateKeyToAccount} from "viem/accounts";
 import { somniaTestnet} from "viem/chains";
@@ -27,5 +27,26 @@ export class PermissionlessService {
         });
 
         return userAccount.address;
+    }
+
+    walletClient() {
+        return createWalletClient({
+            transport: http(''),
+            chain: somniaTestnet,   
+            account: privateKeyToAccount((
+                '0x' + process.env.WALLET_KEY
+            ) as Hex)
+        });
+    }
+
+    async getContractInstance(contractAddress: string, contractAbi: any) {
+        return getContract({
+            address: getAddress(contractAddress),
+            abi: parseAbi(contractAbi),
+            client: {
+                public: this.publicClient(),
+                wallet: this.walletClient()
+            }
+        })
     }
 }

@@ -4,7 +4,9 @@ import { Player } from "../entities/player.entity";
 import { appDataSource } from "../..";
 import { PlayerSalt } from "../entities/salted.entity";
 import { PermissionlessService } from "../../permissionless/permissionless.service";
-
+import * as playerAbi from '../../permissionless/abis/player.abi.json';
+import { config } from 'dotenv';
+config();
 
 export class PlayerService {
     private readonly playerRepository: Repository<Player>;
@@ -50,6 +52,13 @@ export class PlayerService {
 
         const savedPlayer: Player = await this.playerRepository.save(newPlayer);
 
+        // save player on chain 
+        const contract = await this.permissionlessService.getContractInstance(
+            process.env.GAME_CONTRACT as string ,playerAbi.abi);
+
+        await contract.write.registerPlayer([
+            savedPlayer.playerSalt, savedPlayer.smartAccountAddress
+        ]);
         // update the salted 
         playerSalt.salt += 1;
         await this.playerSaltedRepository.save(playerSalt);
