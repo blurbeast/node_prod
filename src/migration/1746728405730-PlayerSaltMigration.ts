@@ -8,6 +8,15 @@ export class PlayerSaltMigration1746728405730 implements MigrationInterface {
                 name: 'players_salt',
                 columns: [
                     {
+                        name: 'id',
+                        type: 'int',
+                        isPrimary: true,
+                        isNullable: false,
+                        isGenerated: true,
+                        isUnique: true, 
+                        generationStrategy: 'increment'
+                    },
+                    {
                         name: 'salt',
                         type: 'int'
                     },
