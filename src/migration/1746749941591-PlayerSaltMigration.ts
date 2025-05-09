@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class PlayerSaltMigration1746728405730 implements MigrationInterface {
+export class PlayerSaltMigration1746749941591 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
@@ -11,7 +11,6 @@ export class PlayerSaltMigration1746728405730 implements MigrationInterface {
                         name: 'id',
                         type: 'int',
                         isPrimary: true,
-                        isNullable: false,
                         isGenerated: true,
                         isUnique: true, 
                         generationStrategy: 'increment'
