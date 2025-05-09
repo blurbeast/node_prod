@@ -89,7 +89,7 @@ export class PlayerService {
 
         return {
             username: player.username,
-            tokenBalance: playerTokenBalance,
+            tokenBalance: BigInt(Number(playerTokenBalance)),
             smartAccountAddress: player.smartAccountAddress
         }
     }
