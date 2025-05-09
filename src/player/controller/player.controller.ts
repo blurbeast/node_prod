@@ -18,7 +18,14 @@ export class PlayerController {
         }
     }
 
-    async getPlayers(req: Request, res: Response) {
-        res.status(200).json('i am good ');
+    async getPlayer(req: Request, res: Response) {
+        try{
+            const response = await this.playerService.getPlayer(req.query.username as string);
+            res.status(200).json(response);
+        }catch(error) {
+            res.status(401).json({
+                error: error instanceof Error? error.message : 'could not get user '
+            });
+        }
     }
 }

@@ -19,7 +19,7 @@ export class AppRouter {
     setRouter() {
         this.router.get('/smart/:index', (req, res) => this.permissionlessController.createSmartAccount(req, res));
         this.router.post('/player', (req: Request, res: Response) => this.playerController.createPlayer(req, res));
-        this.router.get('/player', (req: Request, res: Response) => this.playerController.getPlayers(req, res));
+        this.router.get('/player', (req: Request, res: Response) => this.playerController.getPlayer(req, res));
     }
 
     getRouter() {

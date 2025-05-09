@@ -5,6 +5,7 @@ import { appDataSource } from "../..";
 import { PlayerSalt } from "../entities/salted.entity";
 import { PermissionlessService } from "../../permissionless/permissionless.service";
 import * as playerAbi from '../../permissionless/abis/player.abi.json';
+import * as TokenAbi from '../../permissionless/abis/token.abi.json';
 import { config } from 'dotenv';
 config();
 
@@ -67,6 +68,29 @@ export class PlayerService {
         return {
             username: savedPlayer.username,
             smartAddress: savedPlayer.smartAccountAddress
+        }
+    }
+
+    async getPlayer(username: string) {
+        const player: Player | null = await this.playerRepository.findOne({
+            where: { username: username}
+        });
+
+        if(!player) {
+            throw new Error(`could not locate player with the username ${username}`);
+        }
+
+        // get player token balance 
+        const tokenContract = await this.permissionlessService.getContractInstance(
+            process.env.TOKEN_CONTRACT as string , TokenAbi.abi
+        );
+
+        const playerTokenBalance = await tokenContract.read.balanceOf([player.smartAccountAddress]);
+
+        return {
+            username: player.username,
+            tokenBalance: playerTokenBalance,
+            smartAccountAddress: player.smartAccountAddress
         }
     }
 }
