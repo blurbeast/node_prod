@@ -42,7 +42,7 @@ export class PermissionlessService {
     async getContractInstance(contractAddress: string, contractAbi: any) {
         return getContract({
             address: getAddress(contractAddress),
-            abi: parseAbi(contractAbi),
+            abi: contractAbi,
             client: {
                 public: this.publicClient(),
                 wallet: this.walletClient()

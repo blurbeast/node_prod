@@ -50,15 +50,16 @@ export class PlayerService {
         newPlayer.username = createPlayerDto.username.toLocaleLowerCase();
         newPlayer.smartAccountAddress = smartAddress;
 
-        const savedPlayer: Player = await this.playerRepository.save(newPlayer);
-
         // save player on chain 
         const contract = await this.permissionlessService.getContractInstance(
             process.env.GAME_CONTRACT as string ,playerAbi.abi);
 
         await contract.write.registerPlayer([
-            savedPlayer.playerSalt, savedPlayer.smartAccountAddress
+            newPlayer.playerSalt, newPlayer.smartAccountAddress
         ]);
+
+        const savedPlayer: Player = await this.playerRepository.save(newPlayer);
+
         // update the salted 
         playerSalt.salt += 1;
         await this.playerSaltedRepository.save(playerSalt);
