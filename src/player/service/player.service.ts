@@ -85,11 +85,11 @@ export class PlayerService {
             process.env.TOKEN_CONTRACT as string , TokenAbi.abi
         );
 
-        const playerTokenBalance = await tokenContract.read.balanceOf([player.smartAccountAddress]);
+        // const playerTokenBalance = await tokenContract.read.balanceOf([player.smartAccountAddress]);
 
         return {
             username: player.username,
-            tokenBalance: playerTokenBalance as string,
+            // tokenBalance: playerTokenBalance as string,
             smartAccountAddress: player.smartAccountAddress
         }
     }
