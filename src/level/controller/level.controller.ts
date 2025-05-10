@@ -48,7 +48,6 @@ export class LevelController {
 
     async getLevelPagination(req: Request, res: Response) {
         try{
-
             const limit = req.params.limit;
             const offset = (req.params.offset);
 

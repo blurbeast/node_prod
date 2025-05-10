@@ -30,7 +30,7 @@ export class AppRouter {
         // level
         this.router.post('/level/:username/:score', (req: Request, res: Response) => this.levelController.addPlayerScore(req, res));
         this.router.get('/level/top/:limit', (req: Request, res: Response) => this.levelController.getTopNLevel(req, res));
-        this.router.get('/level/paginate:/limit/offset', (req: Request, res: Response) => this.levelController.getLevelPagination(req, res));
+        this.router.get('/level/paginate/:limit/:offset', (req: Request, res: Response) => this.levelController.getLevelPagination(req, res));
         this.router.get('/level/:username', (req: Request, res: Response) => this.levelController.getPlayerLevelScore(req, res));
     }
 
