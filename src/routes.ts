@@ -25,7 +25,7 @@ export class AppRouter {
         // this.router.get('/smart/:index', (req, res) => this.permissionlessController.createSmartAccount(req, res));
         // player
         this.router.post('/player', (req: Request, res: Response) => this.playerController.createPlayer(req, res));
-        this.router.get('/player', (req: Request, res: Response) => this.playerController.getPlayer(req, res));
+        this.router.get('/player/:username', (req: Request, res: Response) => this.playerController.getPlayer(req, res));
 
         // level
         this.router.post('/level/:username/:score', (req: Request, res: Response) => this.levelController.addPlayerScore(req, res));
