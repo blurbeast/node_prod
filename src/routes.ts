@@ -28,7 +28,9 @@ export class AppRouter {
         this.router.get('/player', (req: Request, res: Response) => this.playerController.getPlayer(req, res));
 
         // level
-        this.router.post('/player/:username/:score', (req: Request, res: Response) => this.levelController.addPlayerScore(req, res));
+        this.router.post('/level/:username/:score', (req: Request, res: Response) => this.levelController.addPlayerScore(req, res));
+        this.router.get('/level/top', (req: Request, res: Response) => this.levelController.getTopNLevel(req, res));
+        this.router.get('/level/paginate', (req: Request, res: Response) => this.levelController.getLevelPagination(req, res));
     }
 
     getRouter() {
