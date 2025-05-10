@@ -1,26 +1,24 @@
 import { DataSource, Repository } from "typeorm";
 import { CreatePlayerDto } from "../dtos/createPlayer.dto";
 import { Player } from "../entities/player.entity";
-// import { appDataSource } from "../..";
 import { PlayerSalt } from "../entities/salted.entity";
 import { PermissionlessService } from "../../permissionless/permissionless.service";
 import * as playerAbi from '../../permissionless/abis/player.abi.json';
 import * as TokenAbi from '../../permissionless/abis/token.abi.json';
 import { config } from 'dotenv';
 import { LevelService } from "../../level/service/level.service";
+import { formatUnits } from "viem";
 config();
 
 export class PlayerService {
     private readonly playerRepository: Repository<Player>;
     private readonly playerSaltedRepository: Repository<PlayerSalt>;
     private readonly permissionlessService: PermissionlessService;
-    // private readonly levelService: LevelService;
     constructor(appDataSource: DataSource, private readonly levelService: LevelService) {
         this.playerRepository = appDataSource.getRepository(Player);
         this.playerSaltedRepository = appDataSource.getRepository(PlayerSalt);
         this.permissionlessService = new PermissionlessService();
     }
-
 
     async createPlayer(createPlayerDto: CreatePlayerDto): Promise<any> {
         // check if the user name exist
@@ -91,12 +89,13 @@ export class PlayerService {
             process.env.TOKEN_CONTRACT as string , TokenAbi.abi
         );
 
-        // const playerTokenBalance = await tokenContract.read.balanceOf([player.smartAccountAddress]);
+        const playerTokenBalance = await tokenContract.read.balanceOf([player.smartAccountAddress]) as bigint;
+        const decimals = await tokenContract.read.decimals([]) as number;
 
         return {
             username: player.username,
-            // tokenBalance: playerTokenBalance as string,
-            smartAccountAddress: player.smartAccountAddress
-        }
+            tokenBalance: formatUnits(playerTokenBalance, decimals),
+            smartAccountAddress: player.smartAccountAddress,
+        };
     }
 }
