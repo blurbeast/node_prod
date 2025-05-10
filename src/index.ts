@@ -7,6 +7,7 @@ import { AppRouter } from './routes';
 import { config } from 'dotenv';
 import { Player } from './player/entities/player.entity';
 import { PlayerSalt } from './player/entities/salted.entity';
+import { Level } from './level/entity/level.entity';
 config();
 const app: Express = express();
 
@@ -24,7 +25,7 @@ export const appDataSource = new DataSource({
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
-    entities: [User, Player, PlayerSalt],
+    entities: [User, Player, PlayerSalt, Level],
     migrations: ['src/migration/*.ts'],
     synchronize: false,
     // logging: true

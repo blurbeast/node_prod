@@ -7,16 +7,19 @@ import { PermissionlessService } from "../../permissionless/permissionless.servi
 import * as playerAbi from '../../permissionless/abis/player.abi.json';
 import * as TokenAbi from '../../permissionless/abis/token.abi.json';
 import { config } from 'dotenv';
+import { LevelService } from "../../level/service/level.service";
 config();
 
 export class PlayerService {
     private readonly playerRepository: Repository<Player>;
     private readonly playerSaltedRepository: Repository<PlayerSalt>;
     private readonly permissionlessService: PermissionlessService;
+    private readonly levelService: LevelService;
     constructor() {
         this.playerRepository = appDataSource.getRepository(Player);
         this.playerSaltedRepository = appDataSource.getRepository(PlayerSalt);
         this.permissionlessService = new PermissionlessService();
+        this.levelService = new LevelService();
     }
 
 
@@ -54,6 +57,9 @@ export class PlayerService {
         // save player on chain 
         const contract = await this.permissionlessService.getContractInstance(
             process.env.GAME_CONTRACT as string ,playerAbi.abi);
+
+        // create level for player 
+        await this.levelService.createPlayerLevel(newPlayer.username);
 
         await contract.write.registerPlayer([
             newPlayer.playerSalt, newPlayer.smartAccountAddress
