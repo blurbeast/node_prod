@@ -57,12 +57,13 @@ export class PlayerService {
         const contract = await this.permissionlessService.getContractInstance(
             process.env.GAME_CONTRACT as string ,playerAbi.abi);
 
-        // create level for player 
-        await this.levelService.createPlayerLevel(newPlayer.username);
-
+            
         await contract.write.registerPlayer([
             newPlayer.playerSalt, newPlayer.smartAccountAddress
         ]);
+
+        // create level for player 
+        await this.levelService.createPlayerLevel(newPlayer.username);
 
         const savedPlayer: Player = await this.playerRepository.save(newPlayer);
 
