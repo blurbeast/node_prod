@@ -2,10 +2,8 @@ import { Request, Response } from "express";
 import { PlayerService } from "../service/player.service";
 
 export class PlayerController {
-    private readonly playerService: PlayerService;
-    constructor() {
-        this.playerService = new PlayerService();
-    }
+    
+    constructor(private readonly playerService: PlayerService) {}
 
     async createPlayer(req: Request, res: Response) {
         try{

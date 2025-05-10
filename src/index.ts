@@ -1,4 +1,3 @@
-
 import express , { Express, Request, Response } from 'express';
 import { DataSource } from 'typeorm';
 import { User } from './entities/user.entity';
@@ -12,7 +11,6 @@ config();
 const app: Express = express();
 
 app.use(express.json());
-
 
 const defaultRouter = (req: Request, res: Response) => {
     res.send('loaded it on truck');

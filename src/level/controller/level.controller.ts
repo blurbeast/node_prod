@@ -1,14 +1,9 @@
 import e, { Request, Response } from "express";
 import { LevelService } from "../service/level.service";
 
-
-
 export class LevelController {
 
-    private readonly levelService: LevelService;
-
-    constructor() {
-        this.levelService = new LevelService();
+    constructor(private readonly levelService: LevelService) {
     }
 
     async addPlayerScore(req: Request, res: Response) {

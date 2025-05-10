@@ -1,13 +1,10 @@
-import { Repository } from "typeorm";
+import { DataSource, Repository } from "typeorm";
 import { Level } from "../entity/level.entity";
-import { appDataSource } from "../..";
-
-
 
 export class LevelService {
     private readonly levelRepository: Repository<Level>
 
-    constructor() {
+    constructor(appDataSource: DataSource) {
         this.levelRepository = appDataSource.getRepository(Level);
     }
 

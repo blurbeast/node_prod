@@ -1,8 +1,5 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 
-
-
-
 @Entity()
 export class Level {
     @PrimaryGeneratedColumn('increment')

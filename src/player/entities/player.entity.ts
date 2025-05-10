@@ -1,7 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-
-
 @Entity('players')
 export class Player {
     @PrimaryGeneratedColumn('increment')

@@ -1,21 +1,23 @@
 import express, { Request, Response, Router } from "express";
-// import { permissionlessController } from "./permissionless/permissionless.controller";
 import { PlayerController } from "./player/controller/player.controller";
 import { LevelController } from "./level/controller/level.controller";
+import { LevelService } from "./level/service/level.service";
+import { PlayerService } from "./player/service/player.service";
+import { appDataSource } from ".";
 
 
 export class AppRouter {
 
     private readonly router: Router;
-    // private readonly permissionlessController: permissionlessController;
     private readonly playerController: PlayerController;
     private readonly levelController: LevelController;
 
     constructor() {
         this.router = express.Router();
-        // this.permissionlessController = new permissionlessController();
-        this.playerController = new PlayerController();
-        this.levelController = new LevelController();
+        const levelService: LevelService = new LevelService(appDataSource);
+        const playerService: PlayerService = new PlayerService(appDataSource, levelService);
+        this.playerController = new PlayerController(playerService);
+        this.levelController = new LevelController(levelService);
         this.setRouter();
     }
 

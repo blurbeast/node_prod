@@ -1,7 +1,7 @@
-import { Repository } from "typeorm";
+import { DataSource, Repository } from "typeorm";
 import { CreatePlayerDto } from "../dtos/createPlayer.dto";
 import { Player } from "../entities/player.entity";
-import { appDataSource } from "../..";
+// import { appDataSource } from "../..";
 import { PlayerSalt } from "../entities/salted.entity";
 import { PermissionlessService } from "../../permissionless/permissionless.service";
 import * as playerAbi from '../../permissionless/abis/player.abi.json';
@@ -14,12 +14,11 @@ export class PlayerService {
     private readonly playerRepository: Repository<Player>;
     private readonly playerSaltedRepository: Repository<PlayerSalt>;
     private readonly permissionlessService: PermissionlessService;
-    private readonly levelService: LevelService;
-    constructor() {
+    // private readonly levelService: LevelService;
+    constructor(appDataSource: DataSource, private readonly levelService: LevelService) {
         this.playerRepository = appDataSource.getRepository(Player);
         this.playerSaltedRepository = appDataSource.getRepository(PlayerSalt);
         this.permissionlessService = new PermissionlessService();
-        this.levelService = new LevelService();
     }
 
 
