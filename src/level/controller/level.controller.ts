@@ -22,6 +22,19 @@ export class LevelController {
         }
     }
 
+
+    async getPlayerLevelScore(req: Request, res: Response) {
+        try{
+            const username = req.params.username;
+            const result = await this.levelService.getPlayerLevelScore(username);
+            res.status(200).json(result); 
+        }catch(error) {
+            const err = error instanceof Error ?
+             error.message : 'level controller: could not determine the error ';
+            res.status(401).json(err);
+        }
+    }
+
     async getTopNLevel(req: Request, res: Response) {
         try {
             const limit = req.query.limit;
