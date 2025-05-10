@@ -39,6 +39,22 @@ export class LevelService {
         // save or update the player level 
         await this.levelRepository.save(playerLevel);
     }
+
+    async getPlayerLevelScore(username: string) {
+        // get the player level
+        const playerLevel = await this.levelRepository.findOne({
+            where: { playerUsername: username }
+        });
+
+        if(!playerLevel) {
+            throw new Error(`could not locate player level with the specified username ? ${username}`)
+        }
+
+        return {
+            username: playerLevel.playerUsername,
+            playerScore: playerLevel.playerScore
+        }
+    }
     
     async getTopNPlayerLevel(limit: number) {
         const results = await this.returnLevelsQuery()
