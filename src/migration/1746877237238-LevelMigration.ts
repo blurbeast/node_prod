@@ -24,6 +24,7 @@ export class LevelMigration1746877237238 implements MigrationInterface {
                     {
                         name: 'player_score',
                         type: 'int',
+                        default: 0
                     }
                 ]
             })
