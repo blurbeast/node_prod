@@ -89,7 +89,7 @@ export class PlayerService {
 
         return {
             username: player.username,
-            tokenBalance: JSON.stringify(playerTokenBalance),
+            tokenBalance: playerTokenBalance as string,
             smartAccountAddress: player.smartAccountAddress
         }
     }
