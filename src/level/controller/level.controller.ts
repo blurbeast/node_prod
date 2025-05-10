@@ -37,7 +37,7 @@ export class LevelController {
 
     async getTopNLevel(req: Request, res: Response) {
         try {
-            const limit = req.query.limit;
+            const limit = req.params.limit;
             const response = await this.levelService.getTopNPlayerLevel(Number(limit));
             res.status(200).json(response);
         }catch(error) {
@@ -48,9 +48,11 @@ export class LevelController {
 
     async getLevelPagination(req: Request, res: Response) {
         try{
-            const limit = Number(req.query.limit);
-            const offset = Number(req.query.offset);
-            const response = await this.levelService.getPlayersLevelsPagination(limit, offset);
+
+            const limit = req.params.limit;
+            const offset = (req.params.offset);
+
+            const response = await this.levelService.getPlayersLevelsPagination(Number(limit), Number(offset));
             res.status(200).json(response);
         }catch(error) {
             const result = error instanceof Error ? error.message : 'level error: could not tell the error';
