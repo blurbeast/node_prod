@@ -59,14 +59,14 @@ export class LevelService {
     async getTopNPlayerLevel(limit: number) {
         // if (!Number
         return await this.returnLevelsQuery()
-            .orderBy('"playerScore"', 'DESC')
+            .orderBy('"player_score"', 'DESC')
             .limit(limit)
             .getRawMany();
     }
 
     async getPlayersLevelsPagination(limit: number, offset: number) {
         return await this.returnLevelsQuery()
-            .orderBy('"playerScore"', 'DESC')
+            .orderBy('"player_score"', 'DESC')
             .limit(limit)
             .offset(offset)
             .getRawMany();
