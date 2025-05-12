@@ -57,33 +57,28 @@ export class LevelService {
     }
     
     async getTopNPlayerLevel(limit: number) {
-        const results = await this.returnLevelsQuery()
-        .orderBy('`level`.`player_score`', 'DESC')
-        .limit(limit)
-        .getRawMany();
+        // if (!Number
+        return await this.returnLevelsQuery()
+            .orderBy('"playerScore"', 'DESC')
+            .limit(limit)
+            .getRawMany();
+    }
 
-        // to be changed later 
-        return results;
-     }
-
-     async getPlayersLevelsPagination(limit: number, offset: number) {
-        const results = await this.returnLevelsQuery()
-          .orderBy('`level`.`player_score`', 'DESC')
-          .limit(limit)
-          .offset(offset)
-          .getRawMany();
-
-          // to be changed later 
-          return results;
-      }
+    async getPlayersLevelsPagination(limit: number, offset: number) {
+        return await this.returnLevelsQuery()
+            .orderBy('"playerScore"', 'DESC')
+            .limit(limit)
+            .offset(offset)
+            .getRawMany();
+    }
 
     private returnLevelsQuery() {
         return this.levelRepository
-          .createQueryBuilder('level')
-          .select([
-            '`level`.`player_user_name` AS `playerUsername`',
-            '`level`.`player_score` AS `playerScore`',
-            'DENSE_RANK() OVER (ORDER BY `level`.`player_score` DESC) AS `rank`',
-          ]);
-      }
+            .createQueryBuilder('level')
+            .select([
+                '"level"."playerUsername" AS "playerUsername"',
+                '"level"."playerScore" AS "playerScore"',
+                'DENSE_RANK() OVER (ORDER BY "level"."playerScore" DESC) AS "rank"',
+            ]);
+    }
 }
