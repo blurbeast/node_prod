@@ -76,9 +76,9 @@ export class LevelService {
         return this.levelRepository
             .createQueryBuilder('level')
             .select([
-                '"level"."playerUsername" AS "playerUsername"',
-                '"level"."playerScore" AS "playerScore"',
-                'DENSE_RANK() OVER (ORDER BY "level"."playerScore" DESC) AS "rank"',
+                'level.player_user_name AS playerUsername',
+                'level.player_score AS playerScore',
+                'DENSE_RANK() OVER (ORDER BY level.player_score DESC) AS rank',
             ]);
     }
 }
