@@ -41,18 +41,10 @@ export class LevelService {
     }
 
     async getPlayerLevelScore(username: string) {
-        // get the player level
-        // const playerLevel = await this.levelRepository.findOne({
-        //     where: { playerUsername: username }
-        // });
-
-        // if(!playerLevel) {
-        //     throw new Error(`could not locate player level with the specified username ? ${username}`)
-        // }
-
-        const playerLevel = await this.returnLevelsQuery();
+       
+        const playerLevel = this.returnLevelsQuery();
         return playerLevel.where(
-            "player.player_user_name = :username", { username }
+            "level.player_user_name = :username", { username }
         )
         .getRawOne();
     }
