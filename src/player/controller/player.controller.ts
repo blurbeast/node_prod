@@ -18,7 +18,7 @@ export class PlayerController {
 
     async getPlayer(req: Request, res: Response) {
         try{
-            const response = await this.playerService.getPlayer(req.query.username as string);
+            const response = await this.playerService.getPlayer(req.params.username as string);
             res.status(200).json(response);
         }catch(error) {
             res.status(401).json({
