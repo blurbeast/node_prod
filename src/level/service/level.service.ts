@@ -38,6 +38,9 @@ export class LevelService {
 
         // save or update the player level 
         await this.levelRepository.save(playerLevel);
+
+
+        return 'succesfully updated player score';
     }
 
     async getPlayerLevelScore(username: string) {
