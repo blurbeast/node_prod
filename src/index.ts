@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import express , { Express, Request, Response } from 'express';
 import { DataSource } from 'typeorm';
 import { AppRouter } from './routes';
