@@ -18,6 +18,7 @@ app.use(express_1.default.json());
 const defaultRouter = (req, res) => {
     res.send('loaded it on truck');
 };
+const APP_PORT = parseInt(process.env.APP_PORT || '', 10) || 3000;
 exports.appDataSource = new typeorm_1.DataSource({
     type: 'postgres',
     host: process.env.HOST,
@@ -31,9 +32,10 @@ exports.appDataSource = new typeorm_1.DataSource({
     // logging: true
 });
 exports.appDataSource.initialize().then(async () => {
+    console.log('port is :::', APP_PORT);
     await exports.appDataSource.runMigrations();
     const appRounter = new routes_1.AppRouter();
     app.get('/', defaultRouter);
     app.use('/api', appRounter.getRouter());
-    app.listen(2000, () => console.log("port at ::: 2000"));
+    app.listen(APP_PORT, () => console.log(`port at ::: ${APP_PORT}`));
 }).catch((error) => console.error('error at ', error));

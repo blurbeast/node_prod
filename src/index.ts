@@ -15,6 +15,8 @@ const defaultRouter = (req: Request, res: Response) => {
     res.send('loaded it on truck');
 }
 
+const APP_PORT = parseInt(process.env.APP_PORT || '', 10) || 3000;
+
 export const appDataSource = new DataSource({
     type: 'postgres',
     host: process.env.HOST,
@@ -30,9 +32,10 @@ export const appDataSource = new DataSource({
 
 
 appDataSource.initialize().then(async() => {
+    console.log('port is :::', APP_PORT);
     await appDataSource.runMigrations();
     const appRounter = new AppRouter();
     app.get('/', defaultRouter);
     app.use('/api', appRounter.getRouter());
-    app.listen(2000, ()=> console.log("port at ::: 2000"));
+    app.listen(APP_PORT, ()=> console.log(`port at ::: ${APP_PORT}`));
 }).catch((error) => console.error('error at ', error));
