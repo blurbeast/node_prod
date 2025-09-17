@@ -27,7 +27,7 @@ exports.appDataSource = new typeorm_1.DataSource({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
     entities: [player_entity_js_1.Player, salted_entity_js_1.PlayerSalt, level_entity_js_1.Level],
-    migrations: ['src/migration/*.js'],
+    migrations: ['dist/migration/*.js'],
     synchronize: false,
     // logging: true
 });

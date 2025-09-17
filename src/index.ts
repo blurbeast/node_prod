@@ -25,7 +25,7 @@ export const appDataSource = new DataSource({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
     entities: [Player, PlayerSalt, Level],
-    migrations: ['src/migration/*.js'],
+    migrations: ['dist/migration/*.js'],
     synchronize: false,
     // logging: true
 });
