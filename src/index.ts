@@ -1,11 +1,11 @@
 import "reflect-metadata";
 import express , { Express, Request, Response } from 'express';
 import { DataSource } from 'typeorm';
-import { AppRouter } from './routes';
+import { AppRouter } from './routes.js';
 import { config } from 'dotenv';
-import { Player } from './player/entities/player.entity';
-import { PlayerSalt } from './player/entities/salted.entity';
-import { Level } from './level/entity/level.entity';
+import { Player } from './player/entities/player.entity.js';
+import { PlayerSalt } from './player/entities/salted.entity.js';
+import { Level } from './level/entity/level.entity.js';
 config();
 const app: Express = express();
 
@@ -25,7 +25,7 @@ export const appDataSource = new DataSource({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
     entities: [Player, PlayerSalt, Level],
-    migrations: ['src/migration/*.ts'],
+    migrations: ['src/migration/*.js'],
     synchronize: false,
     // logging: true
 });
